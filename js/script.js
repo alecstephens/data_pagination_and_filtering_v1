@@ -21,9 +21,9 @@ function showPage(list, page) {
    const endIndex = page * itemsPerPage;
    studentList.innerHTML = '';
    for(let i = 0; i < list.length; i++) {
-      if(i > startIndex ) {
+      if(i > startIndex  && i < endIndex) {
          const display = 
-         <li class="student-item cf">
+         `<li class="student-item cf">
          <div class="student-details">
            <img class="avatar" src={list[i].picture.medium} alt="Profile Picture">
            <h3>${list[i].name.first} ${list[i].name.last}</h3>
@@ -32,7 +32,7 @@ function showPage(list, page) {
          <div class="joined-details">
            <span class="date">Joined ${list[i].registered.date}</span>
          </div>
-       </li>
+       </li>`;
        studentList.insertAdjacentHTML('beforeend', display);
       }
    }
@@ -43,7 +43,28 @@ function showPage(list, page) {
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
-
+function addPagination(list) {
+   let numberOfPages = Math.ceil(list.length / itemsPeraPage);
+   const linkList = document.querySelector('.link-list');
+   linkList.innerHTML = '';
+   for(let i = 0; i < numberOfPages; i++) {
+      const button = 
+         `<li>
+         <button type="button">${i}</button>
+          </li>`;
+      linkList.insertAdjacentHTML('beforeend', button);
+      const firstButton = document.querySelector('button:first-child');
+      firstButton.className = 'active';
+      linkList.addEventListener('click', (e) => {
+         if(e.target.tagName === 'BUTTON') {
+            let activeButton = document.querySelector('.active');
+            activeButton.className = '';
+            e.target.className = 'active';
+            showPage(list, e.target.textContent);
+         }
+      });
+   }
+}
 
 
 // Call functions
