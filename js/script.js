@@ -42,7 +42,7 @@ function addPagination(list) {
    let numberOfPages = Math.ceil(list.length / itemsPerPage);
    linkList.innerHTML = '';
 
-   for(let i = 0; i <= numberOfPages; i++) {
+   for(let i = 1; i <= numberOfPages; i++) {
       let button = 
          `<li>
             <button type="button">${i}</button>
